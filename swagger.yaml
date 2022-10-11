@@ -1,0 +1,914 @@
+openapi: 3.0.0
+info:
+  title: Airtime2Cash
+  description: In order to convert mobile airtime into cash using the web-based application Airtime2Cash, you must first initiate the process from the platform. Once our admin has confirmed the transaction as successful, 70% of the transferred amount will be credited to the client's wallet, from which the client can withdraw the money to his or her bank account.
+  contact:
+    name: SQ11B Pod F
+    email: airtime2cashpodf@gmail.com
+  version: '1.0'
+servers:
+- url: http://localhost:7000
+  description: This is the localhost development server
+  variables: {}
+paths:
+  /cash/withdraw:
+    post:
+      tags:
+      - User
+      summary: withdraw
+      operationId: withdraw
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/withdrwarequest'
+              - example:
+                  amount: 100
+                  accountNumber: '0643526489'
+                  bank: Access
+                  password: '1234567890'
+                  accountName: Adegbesan Felix
+            example:
+              amount: 100
+              accountNumber: '0643526489'
+              bank: Access
+              password: '1234567890'
+              accountName: Adegbesan Felix
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: http://localhost:7000
+        variables: {}
+  /user/update/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    patch:
+      tags:
+      - User
+      summary: update profile
+      description: This endpoint allows you to update a logged-in user profile
+      operationId: updateprofile
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/updateprofilerequest'
+              - example:
+                  firstName: Raji2222
+                  lastName: Adams
+                  phoneNumber: '08073059173'
+                  avatar: https://i.pinimg.com/originals/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg
+                  role: admin
+            example:
+              firstName: Raji2222
+              lastName: Adams
+              phoneNumber: '08073059173'
+              avatar: https://i.pinimg.com/originals/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg
+              role: admin
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /account/createaccount:
+    post:
+      tags:
+      - User
+      summary: Create Bank Account
+      description: A logged-in user can create a bank account with this endpoint
+      operationId: CreateBankAccount
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/createbankaccountrequest'
+              - example:
+                  bankName: WEMA
+                  accountNumber: '0923435657'
+                  accountName: paul david
+            example:
+              bankName: WEMA
+              accountNumber: '0923435657'
+              accountName: paul david
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /user/userAccount/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    get:
+      tags:
+      - User
+      summary: Bank Account details
+      description: Get bank account details of a logged-in user
+      operationId: BankAccountdetails
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /account/getaccounts/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    get:
+      tags:
+      - User
+      summary: Get All Accounts
+      description: Get all registered account for a logged-in user
+      operationId: GetAllAccounts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /transfer/sellairtime:
+    post:
+      tags:
+      - User
+      summary: Transfer Airtime
+      description: This endpoint allows logged-in user to transfer airtime to the admin
+      operationId: TransferAirtime
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/TransferAirtimeRequest'
+              - example:
+                  network: airtel
+                  phoneNumber: '08144153062'
+                  amountToSell: 2000
+                  amountToReceive: 1400
+                  sharePin: '1222'
+            example:
+              network: airtel
+              phoneNumber: '08144153062'
+              amountToSell: 2000
+              amountToReceive: 1400
+              sharePin: '1222'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /user/userTransaction/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    get:
+      tags:
+      - User
+      summary: Transaction History
+      description: This returns detailed history of a logged-in user's Airtime Transfer Transactions
+      operationId: TransactionHistory
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /user/userWithdrawals/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    get:
+      tags:
+      - User
+      summary: Withdraw History
+      description: This endpoint returns withdrawal history of a logged-in user
+      operationId: WithdrawHistory
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /user/singleUser/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    get:
+      tags:
+      - User
+      summary: Single User
+      description: This returns details of a single user
+      operationId: SingleUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /account/deleteaccount/{Account id}:
+    parameters:
+      - in: path
+        name: Account id
+        schema:
+          type: string
+        required: true
+        description: Bank Account Id
+    delete:
+      tags:
+      - User
+      summary: Delete Bank Account
+      description: Registered bank accounts can be deleted with this endpoint
+      operationId: DeleteBankAccount
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /api/mail:
+    post:
+      tags:
+      - Email Services
+      summary: Send Email
+      description: To send an email, just enter the recipient's email address, the subject, and either a text or HTML field for the email body.
+      operationId: SendEmail
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/sendEmailRequest'
+              - example:
+                  to: example@domain.com
+                  subject: RESET PASSWORD
+                  html: "<div style='max-width: 700px;text-align: center; text-transform: uppercase; margin:auto; border: 10px solid #ddd;padding: 50px 20px; font-size: 110%;'> <h2 style='color: teal;'></h2> <p>Please Follow the link by clicking on the button to verify your email </p> <div style='text-align:center ;'> <a href='http://localhost.7000/restetpassword' style='background: #277BC0; text-decoration: none; color: white; padding: 10px 20px; margin: 10px 0; display: inline-block;'>Click here</a></div></div>"
+            example:
+              to: example@domain.com
+              subject: RESET PASSWORD
+              html: "<div style='max-width: 700px;text-align: center; text-transform: uppercase; margin:auto; border: 10px solid #ddd;padding: 50px 20px; font-size: 110%;'> <h2 style='color: teal;'></h2> <p>Please Follow the link by clicking on the button to verify your email </p> <div style='text-align:center ;'> <a href='http://localhost.7000/restetpassword' style='background: #277BC0; text-decoration: none; color: white; padding: 10px 20px; margin: 10px 0; display: inline-block;'>Click here</a></div></div>"
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /user/resetPassword:
+    patch:
+      tags:
+      - Auth
+      summary: Forgot Password Reset
+      description: After the user's email has been verified to be valid, the user can then reset his or her password
+      operationId: ForgotPasswordReset
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/restepasswordrequest'
+              - example:
+                  token: d55e5e01-7b41-440f-961c-a16ab779e00a
+                  password: mypassword
+                  confirmPassword: mypassword
+            example:
+              token: d55e5e01-7b41-440f-961c-a16ab779e00a
+              password: mypassword
+              confirmPassword: mypassword
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /user/register:
+    post:
+      tags:
+      - Auth
+      summary: Register User
+      description: This is the signup endpoint, which allows you to register a user
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/registeruserrequest'
+              - example:
+                  firstName: Adeyinka
+                  lastName: Kayode
+                  userName: tjvpro
+                  email: example@domain.com
+                  phoneNumber: '08093059174'
+                  password: '1234567890'
+                  confirmPassword: '1234567890'
+            example:
+              firstName: Adeyinka
+              lastName: Kayode
+              userName: tjvpro
+              email: example@domain.com
+              phoneNumber: '08093059174'
+              password: '1234567890'
+              confirmPassword: '1234567890'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /user/login:
+    post:
+      tags:
+      - Auth
+      summary: Login User
+      description: You can log in either by using a registered email or a registered username with a password
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginuserrequest'
+              - example:
+                  emailOrUsername: email@hostname.com
+                  password: userpassword
+            example:
+              emailOrUsername: email@hostname.com
+              password: userpassword
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /user/verify/{token}:
+    parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    get:
+      tags:
+      - Auth
+      summary: Verify Email
+      description: This endpoint verifies an unverified email, to get the token for verification you can go through the resend verification token endpoint or upon registration of the user, after which the user would be redirected to the login page
+      operationId: VerifyEmail
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /user/forgetPassword:
+    post:
+      tags:
+      - Auth
+      summary: Forgot Password Token
+      description: This endpoint generates a token that is sent to the email provided. Then the token can be used to reset the password via the reset password endpoint
+      operationId: ForgotPasswordToken
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/forgetpasswordrequest'
+              - example:
+                  email: example@domain.com
+            example:
+              email: example@domain.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user/resendVerification:
+    patch:
+      tags:
+      - Auth
+      summary: Resend Verification Token
+      description: You can resend email verification token with this endpoint
+      operationId: ResendVerificationToken
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ResendVerificationEmailRequest'
+              - example:
+                  email: example@hostname.com
+            example:
+              email: example@hostname.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /wallet/credit:
+    post:
+      tags:
+      - Admin
+      summary: Credit Wallet
+      description: This credit the wallet of the user after transferring and confirming the airtime transaction
+      operationId: CreditWallet
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreditWalletRequest'
+              - example:
+                  email: example@domain.com
+                  amountToSend: 40
+                  status: sent
+                  transactionID: b75520d4-2ca0-4110-a6c4-67fbc4082af0
+            example:
+              email: example@domain.com
+              amountToSend: 40
+              status: sent
+              transactionID: b75520d4-2ca0-4110-a6c4-67fbc4082af0
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /transfer/pendingTransactions:
+    get:
+      tags:
+      - Admin
+      summary: pending transaction
+      description: This endpoint returns all pending Airtime transfer transactions for all users, this is accessed by logged-in admin only
+      operationId: pendingtransaction
+      parameters:
+      - name: page
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 0
+      - name: size
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 15
+      - name: allPending
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: pending
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /transfer/alltransactions:
+    get:
+      tags:
+      - Admin
+      summary: All transactions
+      description: This returns all transactions of Airtime transfer by all users, this is accessed only by logged-in admin
+      operationId: Alltransactions
+      parameters:
+      - name: page
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 0
+      - name: size
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 15
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /user/allUsers:
+    get:
+      tags:
+      - Admin
+      summary: All Users
+      description: This endpoint returns all registered users, accessed by logged-in admin only
+      operationId: AllUsers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user/deleteUser/{userId}:
+    parameters:
+      - in: path
+        name: userId
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    delete:
+      tags:
+      - Admin
+      summary: Delete User
+      description: This endpoint deletes a registered user from the system database, accessed only by logged-in admin
+      operationId: DeleteUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    withdrwarequest:
+      title: withdrwarequest
+      required:
+      - amount
+      - accountNumber
+      - bank
+      - password
+      - accountName
+      type: object
+      properties:
+        amount:
+          type: integer
+          format: int32
+        accountNumber:
+          type: string
+        bank:
+          type: string
+        password:
+          type: string
+        accountName:
+          type: string
+      example:
+        amount: 100
+        accountNumber: '0690000041'
+        bank: Access
+        password: '1234567890'
+        accountName: Faith Tejiri
+    sendEmailRequest:
+      title: sendEmailRequest
+      required:
+      - to
+      - subject
+      - html
+      type: object
+      properties:
+        to:
+          type: string
+        subject:
+          type: string
+        html:
+          type: string
+      example:
+        to: example@example.com
+        subject: RESET PASSWORD
+        html: "<div style='max-width: 700px;text-align: center; text-transform: uppercase; margin:auto; border: 10px solid #ddd;padding: 50px 20px; font-size: 110%;'> <h2 style='color: teal;'></h2> <p>Please Follow the link by clicking on the button to verify your email </p> <div style='text-align:center ;'> <a href='http://localhost.7000/restetpassword' style='background: #277BC0; text-decoration: none; color: white; padding: 10px 20px; margin: 10px 0; display: inline-block;'>Click here</a></div></div>"
+    restepasswordrequest:
+      title: restepasswordrequest
+      required:
+      - token
+      - password
+      - confirmPassword
+      type: object
+      properties:
+        token:
+          type: string
+        password:
+          type: string
+        confirmPassword:
+          type: string
+      example:
+        token: d55e5e01-7b41-440f-961c-a16ab779e00a
+        password: mypassword
+        confirmPassword: mypassword
+    registeruserrequest:
+      title: registeruserrequest
+      required:
+      - firstName
+      - lastName
+      - userName
+      - email
+      - phoneNumber
+      - password
+      - confirmPassword
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        userName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        password:
+          type: string
+        confirmPassword:
+          type: string
+      example:
+        firstName: Adeyinka
+        lastName: Kayode
+        userName: tjvpro
+        email: example@domain.com
+        phoneNumber: '08093059174'
+        password: '1234567890'
+        confirmPassword: '1234567890'
+    loginuserrequest:
+      title: loginuserrequest
+      required:
+      - emailOrUsername
+      - password
+      type: object
+      properties:
+        emailOrUsername:
+          type: string
+        password:
+          type: string
+      example:
+        emailOrUsername: example@domain.com
+        password: '1234567890'
+    forgetpasswordrequest:
+      title: forgetpasswordrequest
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          type: string
+      example:
+        email: example@domain.com
+    updateprofilerequest:
+      title: updateprofilerequest
+      required:
+      - firstName
+      - lastName
+      - phoneNumber
+      - avatar
+      - role
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+        avatar:
+          type: string
+        role:
+          type: string
+      example:
+        firstName: Raji2222
+        lastName: Adams
+        phoneNumber: '08073059173'
+        avatar: https://i.pinimg.com/originals/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg
+        role: admin
+    createbankaccountrequest:
+      title: createbankaccountrequest
+      required:
+      - bankName
+      - accountNumber
+      - accountName
+      type: object
+      properties:
+        bankName:
+          type: string
+        accountNumber:
+          type: string
+        accountName:
+          type: string
+      example:
+        bankName: WEMA
+        accountNumber: '0923435657'
+        accountName: paul david
+    AdminRegisterRequest:
+      title: AdminRegisterRequest
+      required:
+      - firstName
+      - lastName
+      - userName
+      - email
+      - phoneNumber
+      - password
+      - confirmPassword
+      - role
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        userName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        password:
+          type: string
+        confirmPassword:
+          type: string
+        role:
+          type: string
+      example:
+        firstName: Adeyinka
+        lastName: Kayode
+        userName: admin
+        email: example@domain.com
+        phoneNumber: '08073059173'
+        password: '1234567890'
+        confirmPassword: '1234567890'
+        role: admin
+    TransferAirtimeRequest:
+      title: TransferAirtimeRequest
+      required:
+      - network
+      - phoneNumber
+      - amountToSell
+      - amountToReceive
+      - sharePin
+      type: object
+      properties:
+        network:
+          type: string
+        phoneNumber:
+          type: string
+        amountToSell:
+          type: integer
+          format: int32
+        amountToReceive:
+          type: integer
+          format: int32
+        sharePin:
+          type: string
+      example:
+        network: airtel
+        phoneNumber: '08144153062'
+        amountToSell: 2000
+        amountToReceive: 1400
+        sharePin: '1222'
+    CreditWalletRequest:
+      title: CreditWalletRequest
+      required:
+      - email
+      - amountToSend
+      - status
+      - transactionID
+      type: object
+      properties:
+        email:
+          type: string
+        amountToSend:
+          type: integer
+          format: int32
+        status:
+          type: string
+        transactionID:
+          type: string
+      example:
+        email: example@domain.com
+        amountToSend: 40
+        status: sent
+        transactionID: b75520d4-2ca0-4110-a6c4-67fbc4082af0
+    ResendVerificationEmailRequest:
+      title: ResendVerificationEmailRequest
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          type: string
+      example:
+        email: example@domain.com
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: User
+  description: ''
+- name: Email Services
+  description: ''
+- name: Auth
+  description: ''
+- name: Admin
+  description: ''

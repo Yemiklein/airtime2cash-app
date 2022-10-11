@@ -1,0 +1,28 @@
+{
+     "firstName":"string",
+   "lastName":"string",
+   "userName":"string",
+    "email":"string",
+    "phoneNumber":"string",
+    "password":"string",
+    "avatar":"string",
+    "isVerified":false
+}
+
+{ "firstName":"test live",
+    "lastName":"string",
+    "userName":"string",
+    "phoneNumber":"12345678901",
+    "avatar":"string",
+    "isVerified":false,
+  "email": "test@live.com",
+  "confirmPassword":"password123",
+  "password": "password123"}
+
+
+  routes:
+  1.register 
+  localhost:7000/user/register
+  2. loggin
+    localhost:7000/user/login
+    localhost:7000/user/login
