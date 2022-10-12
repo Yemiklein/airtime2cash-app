@@ -6,38 +6,33 @@ name: Node.js CI
   pull_request:
     branches: [ "develop" ]
 
-  jobs:
+jobs:
   build:
      runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
       
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
+     steps:
+     - uses: actions/checkout@v3
+     - name: Use Node.js ${{ matrix.node-version }}
+       uses: actions/setup-node@v3
+       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
-    - run: yarn install
-    - run: yarn build 
+     - run: yarn install
+     - run: yarn build 
    
-
-     unit-test:
-
-    runs-on: ubuntu-latest
-
-    strategy:
+  unit-test: 
+     runs-on: ubuntu-latest
+     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
       
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
+     steps:
+     - uses: actions/checkout@v3
+     - name: Use Node.js ${{ matrix.node-version }}
+       uses: actions/setup-node@v3
+       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
-    - run: yarn install
-    - run: npm test
+     - run: yarn install
+     - run: yarn test
+        
