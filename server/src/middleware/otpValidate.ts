@@ -8,25 +8,25 @@ export async function otpValidate(req: Request | any , res: Response, next: Next
 
 if (!otp) {
   return res.status(400).json({
-    Error: "Otp is required",
+    message: "Otp is required",
   });
 }
 
     const user = await userInstance.findOne({ where: { id, otp } });
     if (!user) {
       return res.status(401).json({
-        Error: 'Invalid OTP',
+        message: 'Invalid OTP',
       });
     }
     if( user.otpExpires < Date.now() ) {
       return res.status(401).json({
-        Error: 'OTP expired',
+        message: 'OTP expired',
       });
     }
     next();
   } catch (error) {
     res.status(403).json({
-      Error: 'User not logged in',
+      message: 'User not logged in',
     });
   }
 

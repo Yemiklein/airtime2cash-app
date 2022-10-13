@@ -32,7 +32,7 @@ const user = await userInstance.findOne({ where: { id } });
 if (!user) {
   return res.status(404).json({ message: "User not found" });
 }
-await user.update( { otp, otpExpires: Date.now() + 300000 });
+await user.update({ otp, otpExpires: Date.now() + 300000 });
 
 // SEND OTP TO EMAIL
 const emailData = {

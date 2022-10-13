@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add axios
+  /usr/local/bin/node /usr/local/bin/yarn add speakeasy -D @/types speakeasy
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Postgres.app/Contents/Versions/latest/bin
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 Yarn version: 
   1.22.19
@@ -14,8 +14,17 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: getaddrinfo ENOTFOUND registry.yarnpkg.com
-      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:71:26)
+  Error: https://registry.yarnpkg.com/@%2ftypes: Not found
+      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66145:18)
+      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140890:22)
+      at Request.emit (node:events:527:28)
+      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141862:10)
+      at Request.emit (node:events:527:28)
+      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141784:12)
+      at Object.onceWrapper (node:events:641:28)
+      at IncomingMessage.emit (node:events:539:35)
+      at endReadableNT (node:internal/streams/readable:1345:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
 
 npm manifest: 
   {
@@ -36,6 +45,7 @@ npm manifest:
       "prepush": "yarn lint"
     },
     "dependencies": {
+      "axios": "~1.0.0",
       "bcryptjs": "^2.4.3",
       "cloudinary": "~1.31.0",
       "cookie-parser": "~1.4.4",
@@ -49,9 +59,11 @@ npm manifest:
       "joi": "^17.6.0",
       "jsonwebtoken": "^8.5.1",
       "morgan": "~1.9.1",
+      "node-2fa": "^2.0.3",
       "nodemailer": "~6.7.8",
       "nodemailer-mailgun-transport": "~2.1.4",
       "sequelize": "^6.21.6",
+      "speakeasy": "^2.0.0",
       "sqlite3": "^5.0.11",
       "supertest": "~6.2.4",
       "ts-jest": "~29.0.1",
@@ -72,6 +84,7 @@ npm manifest:
       "@types/nodemailer": "^6.4.5",
       "@types/nodemailer-mailgun-transport": "~1.4.3",
       "@types/sequelize": "^4.28.14",
+      "@types/speakeasy": "^2.0.7",
       "@types/sqlite3": "^3.1.8",
       "@types/supertest": "~2.0.12",
       "@types/uuid": "^8.3.4",
@@ -1148,6 +1161,13 @@ Lockfile:
       "@types/mime" "*"
       "@types/node" "*"
   
+  "@types/speakeasy@^2.0.7":
+    version "2.0.7"
+    resolved "https://registry.yarnpkg.com/@types/speakeasy/-/speakeasy-2.0.7.tgz#cb087c501b3eef744a1ae620c19812dd1c3b2f3f"
+    integrity sha512-JEcOhN2SQCoX86ZfiZEe8px84sVJtivBXMZfOVyARTYEj0hrwwbj1nF0FwEL3nJSoEV6uTbcdLllMKBgAYHWCQ==
+    dependencies:
+      "@types/node" "*"
+  
   "@types/sqlite3@^3.1.8":
     version "3.1.8"
     resolved "https://registry.yarnpkg.com/@types/sqlite3/-/sqlite3-3.1.8.tgz#e64310c5841fc01c1a8795d960d951e4cf940296"
@@ -1512,6 +1532,15 @@ Lockfile:
       follow-redirects "^1.14.9"
       form-data "^4.0.0"
   
+  axios@~1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/axios/-/axios-1.0.0.tgz#16ded6096c1d37650db9f6a8d48a2f7c1bb58622"
+    integrity sha512-SsHsGFN1qNPFT5QhSoSD37SHDfGyLSW5AESmyLk2JeCMHv5g0I9g0Hz/zQHx2KNe0jGXh2q2hAm7OdkXm360CA==
+    dependencies:
+      follow-redirects "^1.15.0"
+      form-data "^4.0.0"
+      proxy-from-env "^1.1.0"
+  
   babel-jest@^29.0.3:
     version "29.0.3"
     resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-29.0.3.tgz#64e156a47a77588db6a669a88dedff27ed6e260f"
@@ -1581,6 +1610,11 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/base-64/-/base-64-1.0.0.tgz#09d0f2084e32a3fd08c2475b973788eee6ae8f4a"
     integrity sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg==
+  
+  base32.js@0.0.1:
+    version "0.0.1"
+    resolved "https://registry.yarnpkg.com/base32.js/-/base32.js-0.0.1.tgz#d045736a57b1f6c139f0c7df42518a84e91bb2ba"
+    integrity sha512-EGHIRiegFa62/SsA1J+Xs2tIzludPdzM064N9wjbiEgHnGnJ1V0WEpA4pEwCYT5nDvZk3ubf0shqaCS7k6xeUQ==
   
   basic-auth@~2.0.0:
     version "2.0.1"
@@ -2777,7 +2811,7 @@ Lockfile:
       request "~2.88.2"
       sha.js "^2.4.11"
   
-  follow-redirects@^1.14.0, follow-redirects@^1.14.9:
+  follow-redirects@^1.14.0, follow-redirects@^1.14.9, follow-redirects@^1.15.0:
     version "1.15.2"
     resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
     integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
@@ -4779,7 +4813,7 @@ Lockfile:
       proxy-from-env "^1.0.0"
       socks-proxy-agent "^5.0.0"
   
-  proxy-from-env@^1.0.0:
+  proxy-from-env@^1.0.0, proxy-from-env@^1.1.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/proxy-from-env/-/proxy-from-env-1.1.0.tgz#e102f16ca355424865755d2c9e8ea4f24d58c3e2"
     integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
@@ -5209,6 +5243,13 @@ Lockfile:
     version "0.6.1"
     resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
     integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
+  
+  speakeasy@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/speakeasy/-/speakeasy-2.0.0.tgz#85c91a071b09a5cb8642590d983566165f57613a"
+    integrity sha512-lW2A2s5LKi8rwu77ewisuUOtlCydF/hmQSOJjpTqTj1gZLkNgTaYnyvfxy2WBr4T/h+9c4g8HIITfj83OkFQFw==
+    dependencies:
+      base32.js "0.0.1"
   
   sprintf-js@~1.0.2:
     version "1.0.3"

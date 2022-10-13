@@ -63,3 +63,4 @@ export async function sendMail(req: express.Request, res: express.Response) {
       res.status(500).json(err);
     });
 }
+

@@ -91,6 +91,7 @@ export const withdrawSchema = Joi.object().keys({
     .length(10),
   bank: Joi.string().trim().required(),
   accountName: Joi.string().trim().required(),
+  otp: Joi.number().required(),
   password: Joi.string()
     .regex(/^[a-zA-Z0-9]{3,30}$/)
     .required(),

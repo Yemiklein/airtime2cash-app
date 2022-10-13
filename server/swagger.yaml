@@ -7,8 +7,11 @@ info:
     email: airtime2cashpodf@gmail.com
   version: '1.0'
 servers:
-- url: http://localhost:7000
+- url: https://airtime2cash-podf.herokuapp.com
   description: This is the localhost development server
+  variables: {}
+- url: http://localhost:7000
+  description: ''
   variables: {}
 paths:
   /cash/withdraw:
@@ -16,6 +19,7 @@ paths:
       tags:
       - User
       summary: withdraw
+      description: withdraw
       operationId: withdraw
       parameters: []
       requestBody:
@@ -42,27 +46,25 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
-      servers:
-      - url: http://localhost:7000
-        variables: {}
   /user/update/{id}:
-    parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        required: true
-        description: The user ID
     patch:
       tags:
       - User
-      summary: update profile
+      summary: updateprofile
       description: This endpoint allows you to update a logged-in user profile
       operationId: updateprofile
-      parameters: []
+      parameters:
+      - name: id
+        in: path
+        description: The user ID
+        required: true
+        style: simple
+        schema:
+          type: string
       requestBody:
         description: ''
         content:
@@ -87,6 +89,7 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
@@ -94,7 +97,7 @@ paths:
     post:
       tags:
       - User
-      summary: Create Bank Account
+      summary: CreateBankAccount
       description: A logged-in user can create a bank account with this endpoint
       operationId: CreateBankAccount
       parameters: []
@@ -118,50 +121,53 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
   /user/userAccount/{id}:
-    parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        required: true
-        description: The user ID
     get:
       tags:
       - User
-      summary: Bank Account details
+      summary: BankAccountdetails
       description: Get bank account details of a logged-in user
       operationId: BankAccountdetails
-      parameters: []
+      parameters:
+      - name: id
+        in: path
+        description: The user ID
+        required: true
+        style: simple
+        schema:
+          type: string
       responses:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
   /account/getaccounts/{id}:
-    parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        required: true
-        description: The user ID
     get:
       tags:
       - User
-      summary: Get All Accounts
+      summary: GetAllAccounts
       description: Get all registered account for a logged-in user
       operationId: GetAllAccounts
-      parameters: []
+      parameters:
+      - name: id
+        in: path
+        description: The user ID
+        required: true
+        style: simple
+        schema:
+          type: string
       responses:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
@@ -169,7 +175,7 @@ paths:
     post:
       tags:
       - User
-      summary: Transfer Airtime
+      summary: TransferAirtime
       description: This endpoint allows logged-in user to transfer airtime to the admin
       operationId: TransferAirtime
       parameters: []
@@ -197,93 +203,98 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
   /user/userTransaction/{id}:
-    parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        required: true
-        description: The user ID
     get:
       tags:
       - User
-      summary: Transaction History
+      summary: TransactionHistory
       description: This returns detailed history of a logged-in user's Airtime Transfer Transactions
       operationId: TransactionHistory
-      parameters: []
+      parameters:
+      - name: id
+        in: path
+        description: The user ID
+        required: true
+        style: simple
+        schema:
+          type: string
       responses:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
   /user/userWithdrawals/{id}:
-    parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        required: true
-        description: The user ID
     get:
       tags:
       - User
-      summary: Withdraw History
+      summary: WithdrawHistory
       description: This endpoint returns withdrawal history of a logged-in user
       operationId: WithdrawHistory
-      parameters: []
+      parameters:
+      - name: id
+        in: path
+        description: The user ID
+        required: true
+        style: simple
+        schema:
+          type: string
       responses:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
   /user/singleUser/{id}:
-    parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        required: true
-        description: The user ID
     get:
       tags:
       - User
-      summary: Single User
+      summary: SingleUser
       description: This returns details of a single user
       operationId: SingleUser
-      parameters: []
+      parameters:
+      - name: id
+        in: path
+        description: The user ID
+        required: true
+        style: simple
+        schema:
+          type: string
       responses:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security: []
   /account/deleteaccount/{Account id}:
-    parameters:
-      - in: path
-        name: Account id
-        schema:
-          type: string
-        required: true
-        description: Bank Account Id
     delete:
       tags:
       - User
-      summary: Delete Bank Account
+      summary: DeleteBankAccount
       description: Registered bank accounts can be deleted with this endpoint
       operationId: DeleteBankAccount
-      parameters: []
+      parameters:
+      - name: Account id
+        in: path
+        description: Bank Account Id
+        required: true
+        style: simple
+        schema:
+          type: string
       responses:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
@@ -291,7 +302,7 @@ paths:
     post:
       tags:
       - Email Services
-      summary: Send Email
+      summary: SendEmail
       description: To send an email, just enter the recipient's email address, the subject, and either a text or HTML field for the email body.
       operationId: SendEmail
       parameters: []
@@ -315,13 +326,14 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security: []
   /user/resetPassword:
     patch:
       tags:
       - Auth
-      summary: Forgot Password Reset
+      summary: ForgotPasswordReset
       description: After the user's email has been verified to be valid, the user can then reset his or her password
       operationId: ForgotPasswordReset
       parameters: []
@@ -345,13 +357,14 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security: []
   /user/register:
     post:
       tags:
       - Auth
-      summary: Register User
+      summary: RegisterUser
       description: This is the signup endpoint, which allows you to register a user
       operationId: RegisterUser
       parameters: []
@@ -383,13 +396,14 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security: []
   /user/login:
     post:
       tags:
       - Auth
-      summary: Login User
+      summary: LoginUser
       description: You can log in either by using a registered email or a registered username with a password
       operationId: LoginUser
       parameters: []
@@ -411,34 +425,36 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security: []
   /user/verify/{token}:
-    parameters:
-      - in: path
-        name: token
-        schema:
-          type: string
-        required: true
-        description: The user ID
     get:
       tags:
       - Auth
-      summary: Verify Email
+      summary: VerifyEmail
       description: This endpoint verifies an unverified email, to get the token for verification you can go through the resend verification token endpoint or upon registration of the user, after which the user would be redirected to the login page
       operationId: VerifyEmail
-      parameters: []
+      parameters:
+      - name: token
+        in: path
+        description: The user ID
+        required: true
+        style: simple
+        schema:
+          type: string
       responses:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security: []
   /user/forgetPassword:
     post:
       tags:
       - Auth
-      summary: Forgot Password Token
+      summary: ForgotPasswordToken
       description: This endpoint generates a token that is sent to the email provided. Then the token can be used to reset the password via the reset password endpoint
       operationId: ForgotPasswordToken
       parameters: []
@@ -458,12 +474,13 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
   /user/resendVerification:
     patch:
       tags:
       - Auth
-      summary: Resend Verification Token
+      summary: ResendVerificationToken
       description: You can resend email verification token with this endpoint
       operationId: ResendVerificationToken
       parameters: []
@@ -473,7 +490,7 @@ paths:
           application/json:
             schema:
               allOf:
-              - $ref: '#/components/schemas/ResendVerificationEmailRequest'
+              - $ref: '#/components/schemas/forgetpasswordrequest'
               - example:
                   email: example@hostname.com
             example:
@@ -483,13 +500,64 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security: []
+  /user/sendOTPAdmin:
+    post:
+      tags:
+      - Auth
+      summary: Admin Generate OTP
+      description: This endpoint generate OTP for logged-in admin
+      operationId: AdminGenerateOTP
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/generateOtp'
+              - example:
+                  purpose: Credit user wallet
+            example:
+              purpose: Credit user wallet
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /sendOTPUser:
+    post:
+      tags:
+      - Auth
+      summary: User generate OTP
+      description: This endpoint generates OTP for logged-in user
+      operationId: UsergenerateOTP
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/generateOtp'
+              - example:
+                  purpose: user otp
+            example:
+              purpose: user otp
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
   /wallet/credit:
     post:
       tags:
       - Admin
-      summary: Credit Wallet
+      summary: CreditWallet
       description: This credit the wallet of the user after transferring and confirming the airtime transaction
       operationId: CreditWallet
       parameters: []
@@ -515,6 +583,7 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
@@ -522,7 +591,7 @@ paths:
     get:
       tags:
       - Admin
-      summary: pending transaction
+      summary: pendingtransaction
       description: This endpoint returns all pending Airtime transfer transactions for all users, this is accessed by logged-in admin only
       operationId: pendingtransaction
       parameters:
@@ -559,6 +628,7 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
@@ -566,7 +636,7 @@ paths:
     get:
       tags:
       - Admin
-      summary: All transactions
+      summary: Alltransactions
       description: This returns all transactions of Airtime transfer by all users, this is accessed only by logged-in admin
       operationId: Alltransactions
       parameters:
@@ -594,6 +664,7 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
@@ -601,7 +672,7 @@ paths:
     get:
       tags:
       - Admin
-      summary: All Users
+      summary: AllUsers
       description: This endpoint returns all registered users, accessed by logged-in admin only
       operationId: AllUsers
       parameters: []
@@ -609,26 +680,28 @@ paths:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
   /user/deleteUser/{userId}:
-    parameters:
-      - in: path
-        name: userId
-        schema:
-          type: string
-        required: true
-        description: The user ID
     delete:
       tags:
       - Admin
-      summary: Delete User
+      summary: DeleteUser
       description: This endpoint deletes a registered user from the system database, accessed only by logged-in admin
       operationId: DeleteUser
-      parameters: []
+      parameters:
+      - name: userId
+        in: path
+        description: The user ID
+        required: true
+        style: simple
+        schema:
+          type: string
       responses:
         '200':
           description: ''
           headers: {}
+          content: {}
       deprecated: false
       security:
       - bearer: []
@@ -898,6 +971,17 @@ components:
           type: string
       example:
         email: example@domain.com
+    generateOtp:
+      title: generateOtp
+      required:
+      - purpose
+      type: object
+      properties:
+        purpose:
+          type: string
+      description: ''
+      example:
+        purpose: Credit user wallet
   securitySchemes:
     bearer:
       type: http

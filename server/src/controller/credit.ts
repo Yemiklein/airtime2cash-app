@@ -1,10 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { userInstance } from '../model/userModel';
-import { CreditInstance } from '../model/credit';
 import { creditSchema, options } from '../utils/utils';
 import { v4 as uuidv4 } from 'uuid';
 import { SellAirtimeInstance } from '../model/sellAirtimeModel';
-import { emailTemplate } from './emailController';
+import { emailTemplate} from './emailController';
 
 export async function credit(req: Request | any, res: Response, next: NextFunction) {
     const id = uuidv4()
@@ -91,8 +90,8 @@ export async function credit(req: Request | any, res: Response, next: NextFuncti
               message:`You have successful credited ${email} with the sum of ${amountToSend}`
           });
         }else{
-            return res.status(500).json({
-                message:"Transaction Cancelled"
+            return res.status(201).json({
+                message:"Transaction successfully cancelled"
             })
         }
 
